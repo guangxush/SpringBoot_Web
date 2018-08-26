@@ -3,6 +3,7 @@ package com.shgx.sys.Mapper;
 import com.shgx.sys.Entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserMapper {
     @Select("select * from users where userId = #{userId}")
-    User findUserByUserid(String userId);
+    User findUserByUserid(@Param("userId") String userId);
     @Insert("insert into users (userId,pwd) values (#{userId},#{pwd})")
-    boolean insertUsers (String userId, String pwd);
+    boolean insertUsers (@Param("userId") String userId, @Param("pwd") String pwd);
 }

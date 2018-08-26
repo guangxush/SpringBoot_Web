@@ -17,9 +17,7 @@ public class RegService implements IRegService{
 
         Boolean flag ;
         try {
-            System.out.println("2"+userId+":"+pwd);
             flag = userMapper.insertUsers(userId,pwd);
-            System.out.println("3"+userId+":"+pwd);
         }catch (Exception e){
             return false;
         }

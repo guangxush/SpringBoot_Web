@@ -1,8 +1,11 @@
 package com.shgx.sys.Entity;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Created by gshan on 2018/8/25
  */
+@Component
 public class User {
     private String id;
     private String userId;
@@ -30,5 +33,14 @@ public class User {
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", pwd='" + pwd + '\'' +
+                '}';
     }
 }

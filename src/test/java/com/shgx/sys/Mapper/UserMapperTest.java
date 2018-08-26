@@ -7,8 +7,11 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
@@ -19,6 +22,8 @@ import static junit.framework.TestCase.assertTrue;
 /**
  * Created by gshan on 2018/8/25
  */
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class UserMapperTest {
 
     @Autowired
@@ -32,24 +37,10 @@ public class UserMapperTest {
     }
 
     @Test
-    public void test() {
-        InputStream in = null;
-
-        //加载Mybatis配置文件
-        try {
-            in = Resources.getResourceAsStream("mybatis.xml");
-            //根据相关的mybatis配置文件， 创建连接SQLSessionFactory连接对象
-            SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
-            //创建出SQLSession对象
-            SqlSession sqlSeesion = factory.openSession();
-            //通过sqlSession取到映射接口
-            UserMapper userMapper = sqlSeesion.getMapper(UserMapper.class);
-            Boolean isInsert = userMapper.insertUsers("admin","admin");
-            System.out.println(isInsert);
-            assertTrue(isInsert);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Transactional
+    @Rollback(false)
+    public void testFindUserByUserid(){
+        Assert.assertNotNull(userMapper.findUserByUserid("123"));
     }
 
 }
